@@ -1,3 +1,5 @@
+import java.io.UnsupportedEncodingException;
+
 
 
 
@@ -26,8 +28,16 @@ public class Driver
 		LinkedArrayHashMap<Byte[],Integer> m = new LinkedArrayHashMap<Byte[],Integer>();
 		Byte[] test = {0x8,0x9,0x10};
 		Byte[] test2 = {0x10,0x11};
-		Byte[] test3 = {0x8,0x9,0x10};
-		m.put(test, 0);
-		System.out.println(m.containsArrayKey(test2));
+		byte[] test3 = {0x61,0x61,0x10};
+		
+		String s = "a";
+		try {
+			s = new String(test3,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(s);
 	}
 }

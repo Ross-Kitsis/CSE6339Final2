@@ -12,7 +12,7 @@ public class NgramOps
 	 * @param size The size of the n-grams to extract
 	 * @return A list containing byte arrays; each byte array is an extracted n-gram
 	 */
-	public List<Byte[]> getNgramsFromByteArray(Byte[] bytes, int size)
+	public List<Byte[]> getNgramsFromByteArray(byte[] bytes, int size)
 	{
 		List<Byte[]> toReturn = new ArrayList<Byte[]>();
 		

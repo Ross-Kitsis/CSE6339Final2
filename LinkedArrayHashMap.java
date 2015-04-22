@@ -17,6 +17,7 @@ public class LinkedArrayHashMap<K,V> extends LinkedHashMap<K,V>
 
 	/**
 	 * Overrides the default contains value to use the Arrays class to find equality between array objects
+	 * @param The array object to search for in the maps keyset
 	 */
 	public boolean containsArrayKey(Object[] value) 
 	{

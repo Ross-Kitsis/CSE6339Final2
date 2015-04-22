@@ -11,7 +11,11 @@ public class FileOps
 	{
 		
 	}
-	
+	/**
+	 * 
+	 * @param f The file to a byte array
+	 * @return An array containing the bytes representing the read file
+	 */
 	public byte[] readFileToBytes(File f)
 	{
 		byte[] toReturn = null;

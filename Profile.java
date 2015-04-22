@@ -4,7 +4,7 @@ import java.util.*;
 public class Profile
 {
 	private String idenifier;
-	private Map<Byte[],Integer> ngrams;
+	private LinkedArrayHashMap<Byte[],Integer> ngrams = new LinkedArrayHashMap<Byte[],Integer>();
 	private int ngramSize;
 	
 	
@@ -12,10 +12,23 @@ public class Profile
 	{
 		this.idenifier = identifier;
 		this.ngramSize = ngramSize;
-		ngrams = new LinkedHashMap<Byte[],Integer>();
 	}
-	public void buildProfile(Byte[] bytes)
+	/**
+	 * Builds a profile by traversing the list of bytes and filling a map with n-grams and the number of occurrences
+	 * @param bytes
+	 */
+	public void buildProfile(List<Byte[]> bytes)
 	{
-		
+		for(int i = 0; i < bytes.size(); i++)
+		{
+			Byte[] toAdd = bytes.get(i);
+			if(!ngrams.containsArrayKey(toAdd))
+			{
+				ngrams.put(toAdd, 0);
+			}else
+			{
+				
+			}
+		}
 	}
 }
