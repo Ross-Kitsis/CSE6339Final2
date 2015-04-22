@@ -12,5 +12,10 @@ public class Profile
 	{
 		this.idenifier = identifier;
 		this.ngramSize = ngramSize;
+		ngrams = new LinkedHashMap<Byte[],Integer>();
+	}
+	public void buildProfile(Byte[] bytes)
+	{
+		
 	}
 }

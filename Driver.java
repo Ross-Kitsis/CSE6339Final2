@@ -23,6 +23,11 @@ public class Driver
 		NgramOps n = new NgramOps();
 		
 		//Setup 
-		
+		LinkedArrayHashMap<Byte[],Integer> m = new LinkedArrayHashMap<Byte[],Integer>();
+		Byte[] test = {0x8,0x9,0x10};
+		Byte[] test2 = {0x10,0x11};
+		Byte[] test3 = {0x8,0x9,0x10};
+		m.put(test, 0);
+		System.out.println(m.containsArrayKey(test2));
 	}
 }
