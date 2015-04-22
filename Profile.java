@@ -4,10 +4,13 @@ import java.util.*;
 public class Profile
 {
 	private String idenifier;
-	private Map<Byte,Integer> ngrams;
+	private Map<Byte[],Integer> ngrams;
+	private int ngramSize;
 	
-	public Profile()
+	
+	public Profile(String identifier, int ngramSize)
 	{
-		
+		this.idenifier = identifier;
+		this.ngramSize = ngramSize;
 	}
 }
