@@ -58,5 +58,52 @@ public class NgramOps
 		String auth = "";
 		return auth;
 	}
+	/**
+	 * Return a set containing the union of the 2 passed sets
+	 * @param s1 Set 1
+	 * @param s2 Set 2
+	 * @return A set containing the union of the 2 sets
+	 */
+	private Set<String> getUnion(Set<String> s1, Set<String> s2)
+	{
+		Set<String> toReturn = new HashSet<String>();
+		toReturn.addAll(s1);
+		toReturn.addAll(s2);
+		return toReturn;
+	}
+	private double runCNG(Profile p1, Profile p2)
+	{
+		double toReturn = Integer.MAX_VALUE;
+		
+		Map<String,Integer> np1 = p1.getNgrams();
+		Map<String,Integer> np2 = p2.getNgrams();
+		
+		Set<String> s1 = np1.keySet();
+		Set<String> s2 = np2.keySet();
+		
+		Set<String> u = getUnion(s1,s2);
+		
+		Integer vp1;
+		Integer vp2;
+		
+		for(String s:u)
+		{
+			vp1 = np1.get(s);
+			if(vp1 == null)
+			{
+				vp1 = 0;
+			}
+			
+			vp2 = np2.get(s);
+			if(vp2 == null)
+			{
+				vp2 = 0;
+			}
+			
+			toReturn = toReturn + Math.pow(((2 * (vp1 - (double) vp2))/(double)(vp1+vp2)),2);
+		}
+		
+		return toReturn;
+	}
 	
 }
