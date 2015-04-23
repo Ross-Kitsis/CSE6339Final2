@@ -16,7 +16,7 @@ public class Driver
 		String rThickeLocation = "";
 		String pWilliamsLocation = "";
 		String originalLocation = "";
-		String infringLocation = "";
+		String infringeLocation = "";
 		
 		//Initialize file operations
 		FileOps f = new FileOps();
