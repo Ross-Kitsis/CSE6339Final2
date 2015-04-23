@@ -53,10 +53,30 @@ public class NgramOps
 		
 		return toReturn;
 	}
+	/**
+	 * Finds the most related profile in the list of profiles
+	 * @param p The profile to compare to
+	 * @param q A list of profiles to test against
+	 * @return The identifier of the profile most similar
+	 */
 	public String findProbable(Profile p, List<Profile> q)
 	{
 		String auth = "";
-		return auth;
+		double min = Integer.MAX_VALUE;
+		double temp;
+		
+		for(int i = 0; i < q.size(); i++)
+		{
+			temp = runCNG(p,q.get(i));
+			if(temp < min)
+			{
+				min = temp;
+				auth = q.get(i).getIdenifier();
+			}
+		}
+		
+		
+		return auth + " " + min;
 	}
 	/**
 	 * Return a set containing the union of the 2 passed sets
@@ -71,6 +91,12 @@ public class NgramOps
 		toReturn.addAll(s2);
 		return toReturn;
 	}
+	/**
+	 * Runs the CNG aglorithm on 2 profiles
+	 * @param p1 Profile 1
+	 * @param p2 Profile 2
+	 * @return The dissimilarity between the 2 profiles
+	 */
 	private double runCNG(Profile p1, Profile p2)
 	{
 		double toReturn = Integer.MAX_VALUE;

@@ -74,7 +74,7 @@ public class Profile
 			}
 			temp.put(key, max);
 			ngrams.remove(key);
-			max = Integer.MAX_VALUE;
+			max = Integer.MIN_VALUE;
 		}
 		
 		ngrams = temp;
