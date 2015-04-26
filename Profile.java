@@ -21,12 +21,12 @@ public class Profile
 	{
 		String toAdd;
 		int n;
-		for(int i = 0; i < ngrams.size(); i++)
+		for(int i = 0; i < allNgrams.size(); i++)
 		{
 			toAdd = allNgrams.get(i);
 			if(ngrams.containsKey(toAdd))
 			{
-				n = ngrams.get(i);
+				n = ngrams.get(toAdd);
 				ngrams.put(toAdd, n+1);
 			}else
 			{

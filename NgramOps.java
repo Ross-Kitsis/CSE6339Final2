@@ -43,7 +43,7 @@ public class NgramOps
 		
 		for(int start = 0; start < bytes.length - size; start++)
 		{
-			for(int i = 0; i < size; i++)
+			for(int i = start; i < start + size; i++)
 			{
 				sb.append(String.format("%8s", Integer.toBinaryString(bytes[i] & 0xFF)).replace(' ', '0'));
 			}
@@ -75,7 +75,6 @@ public class NgramOps
 			}
 		}
 		
-		
 		return auth + " " + min;
 	}
 	/**
@@ -84,7 +83,7 @@ public class NgramOps
 	 * @param s2 Set 2
 	 * @return A set containing the union of the 2 sets
 	 */
-	private Set<String> getUnion(Set<String> s1, Set<String> s2)
+	public Set<String> getUnion(Set<String> s1, Set<String> s2)
 	{
 		Set<String> toReturn = new HashSet<String>();
 		toReturn.addAll(s1);
@@ -97,7 +96,7 @@ public class NgramOps
 	 * @param p2 Profile 2
 	 * @return The dissimilarity between the 2 profiles
 	 */
-	private double runCNG(Profile p1, Profile p2)
+	public double runCNG(Profile p1, Profile p2)
 	{
 		double toReturn = Integer.MAX_VALUE;
 		

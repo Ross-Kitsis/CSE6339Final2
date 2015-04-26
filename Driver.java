@@ -1,5 +1,5 @@
-import java.io.UnsupportedEncodingException;
-
+import java.io.*;
+import java.util.*;
 
 
 
@@ -9,13 +9,13 @@ public class Driver
 	{
 		//Parameters
 		int ngramSize = 2;
-		int profileLength = 1500;
+		int profileLength = 100;
 		
 		//File locations for Marvin Gaye, Robin Thicke and Pharrel Williams
 		String mGayeLocation = "";
 		String rThickeLocation = "";
 		String pWilliamsLocation = "";
-		String originalLocation = "";
+		String originalLocation = "./src/original/lyrics";
 		String infringeLocation = "";
 		
 		//Initialize file operations
@@ -24,20 +24,40 @@ public class Driver
 		//Initialize n-gram operations
 		NgramOps n = new NgramOps();
 		
-		//Setup 
-		LinkedArrayHashMap<Byte[],Integer> m = new LinkedArrayHashMap<Byte[],Integer>();
-		Byte[] test = {0x8,0x9,0x10};
-		Byte[] test2 = {0x10,0x11};
-		byte[] test3 = {0x61,0x61,0x10};
-		
-		String s = "a";
+		File[] files = f.getFiles(originalLocation);
 		try {
-			s = new String(test3,"UTF-8");
-		} catch (UnsupportedEncodingException e) {
+			System.out.println(files[0].getCanonicalPath());
+			byte[] bytes = f.readFileToBytes(files[0]);
+			
+			List<String> bs = n.getBitStringNgramsFromByteArray(bytes, ngramSize);
+			/*
+			for(int i= 0; i < bytes.length; i++)
+			{
+				System.out.println(String.format("%8s", Integer.toBinaryString(bytes[i] & 0xFF)).replace(' ', '0'));
+			}*/
+			
+			Profile p = new Profile("originalLyrics", ngramSize);
+			p.addToProfile(bs);
+			
+			p.setProfileLength(profileLength);
+			
+			Map<String,Integer> temp = p.getNgrams();
+			
+			
+			Set<String> k = temp.keySet();
+			
+			for(String s:k)
+			{
+				System.out.println(s + "   " + temp.get(s));
+			}
+			
+			
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println(s);
+		
+		
 	}
 }
