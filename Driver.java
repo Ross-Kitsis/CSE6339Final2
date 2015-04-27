@@ -12,11 +12,11 @@ public class Driver
 		int profileLength = 100;
 		
 		//File locations for Marvin Gaye, Robin Thicke and Pharrel Williams
-		String mGayeLocation = "";
-		String rThickeLocation = "";
-		String pWilliamsLocation = "";
+		String mGayeLocation = "./src/mgaye/lyrics";
+		String rThickeLocation = "./src/rthicke/lyrics";
+		String pWilliamsLocation = "./src/pwilliams/lyrics";
 		String originalLocation = "./src/original/lyrics";
-		String infringeLocation = "";
+		String infringeLocation = "./src/infringe/lyrics";
 		
 		//Initialize file operations
 		FileOps f = new FileOps();

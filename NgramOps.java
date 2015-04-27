@@ -99,7 +99,7 @@ public class NgramOps
 	 */
 	public double runCNG(Profile p1, Profile p2)
 	{
-		double toReturn = Integer.MAX_VALUE;
+		double toReturn = 0;
 		
 		Map<String,Integer> np1 = p1.getNgrams();
 		Map<String,Integer> np2 = p2.getNgrams();
@@ -108,6 +108,8 @@ public class NgramOps
 		Set<String> s2 = np2.keySet();
 		
 		Set<String> u = getUnion(s1,s2);
+		
+		//System.out.println("UNION: " + u);
 		
 		Integer vp1;
 		Integer vp2;
@@ -128,7 +130,6 @@ public class NgramOps
 			
 			toReturn = toReturn + Math.pow(((2 * (vp1 - (double) vp2))/(double)(vp1+vp2)),2);
 		}
-		
 		return toReturn;
 	}
 	
