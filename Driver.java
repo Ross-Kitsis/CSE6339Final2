@@ -9,7 +9,7 @@ public class Driver
 	{
 		//Parameters
 		int ngramSize = 2;
-		int profileLength = 500;
+		double profileLengthFactor = 0.2;
 		
 		//File locations for Marvin Gaye, Robin Thicke and Pharrel Williams
 		String mGayeLocation = "./src/mgaye/lyrics";
@@ -27,24 +27,34 @@ public class Driver
 		//Initialize List of profiles
 		List<Profile> profiles = new ArrayList<Profile>();
 		
-		profiles.add(buildProfile("original", ngramSize, originalLocation, profileLength));
-		profiles.add(buildProfile("infringe", ngramSize, infringeLocation, profileLength));
-		profiles.add(buildProfile("rthicke", ngramSize, rThickeLocation, profileLength));
-		profiles.add(buildProfile("pwilliams", ngramSize, pWilliamsLocation, profileLength));
-		profiles.add(buildProfile("mgaye", ngramSize, mGayeLocation, profileLength));
-		
-		Profile original = profiles.get(0);
-		Profile infringe = profiles.get(1);
-		Profile rthicke = profiles.get(2);
-		Profile pwilliams = profiles.get(3);
-		Profile mgaye = profiles.get(4);
-		
-		System.out.println(infringe.getNgrams().size());
-		
-		
-		double cng = n.runCNG(original, rthicke);
-		System.out.println(cng);
-		
+		for(; ngramSize < 3 ; ngramSize ++)
+		{
+			profiles.add(buildProfile("original", ngramSize, originalLocation));
+			profiles.add(buildProfile("infringe", ngramSize, infringeLocation));
+			profiles.add(buildProfile("rthicke", ngramSize, rThickeLocation));
+			profiles.add(buildProfile("pwilliams", ngramSize, pWilliamsLocation));
+			profiles.add(buildProfile("mgaye", ngramSize, mGayeLocation));
+			
+			for(int i = 1; i < 2; i++)
+			{
+				int profileLength =(int) (profiles.get(0).getNgrams().size() * (profileLengthFactor * i));
+				adjustProfileLengths(profiles, profileLength);
+				System.out.println("Length " + profileLength);
+
+				Profile original = profiles.get(0);
+				Profile infringe = profiles.get(1);
+				Profile rthicke = profiles.get(2);
+				Profile pwilliams = profiles.get(3);
+				Profile mgaye = profiles.get(4);
+
+				System.out.println(original.getNgrams().size());
+
+
+				double cng = n.runCNG(original, pwilliams);
+				System.out.println(cng);
+			}
+
+		}
 		/*
 		Profile p = profiles.get(4);
 		Map<String,Integer> m = p.getNgrams();
@@ -63,7 +73,7 @@ public class Driver
 	 * @param profileLength The length of the profile
 	 * @return A profile containing the L most common ngrams
 	 */
-	public static Profile buildProfile(String identifier, int ngramSize, String fileLocation, int profileLength)
+	public static Profile buildProfile(String identifier, int ngramSize, String fileLocation)
 	{
 		Profile p = new Profile(identifier,ngramSize);
 		FileOps fileops = new FileOps();
@@ -80,8 +90,15 @@ public class Driver
 			byteString = nops.getBitStringNgramsFromByteArray(bytes, ngramSize);
 			p.addToProfile(byteString);
 		}
-		p.setProfileLength(profileLength);
+		//p.setProfileLength(profileLength);
 		
 		return p;
+	}
+	public static void adjustProfileLengths(List<Profile> profiles, int profileLength)
+	{
+		for(Profile p:profiles)
+		{
+			p.setProfileLength(profileLength);
+		}
 	}
 }
