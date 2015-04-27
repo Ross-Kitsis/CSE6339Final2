@@ -67,6 +67,7 @@ public class NgramOps
 		
 		for(int i = 0; i < q.size(); i++)
 		{
+			System.out.println("Running with profile: " + q.get(i).getIdenifier());
 			temp = runCNG(p,q.get(i));
 			if(temp < min)
 			{
