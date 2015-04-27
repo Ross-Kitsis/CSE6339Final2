@@ -9,7 +9,7 @@ public class Driver
 	{
 		//Parameters
 		int ngramSize = 2;
-		int profileLength = 100;
+		int profileLength = 500;
 		
 		//File locations for Marvin Gaye, Robin Thicke and Pharrel Williams
 		String mGayeLocation = "./src/mgaye/lyrics";
@@ -28,47 +28,32 @@ public class Driver
 		List<Profile> profiles = new ArrayList<Profile>();
 		
 		profiles.add(buildProfile("original", ngramSize, originalLocation, profileLength));
+		profiles.add(buildProfile("infringe", ngramSize, infringeLocation, profileLength));
+		profiles.add(buildProfile("rthicke", ngramSize, rThickeLocation, profileLength));
+		profiles.add(buildProfile("pwilliams", ngramSize, pWilliamsLocation, profileLength));
+		profiles.add(buildProfile("mgaye", ngramSize, mGayeLocation, profileLength));
 		
-		Profile p = profiles.get(0);
+		Profile original = profiles.get(0);
+		Profile infringe = profiles.get(1);
+		Profile rthicke = profiles.get(2);
+		Profile pwilliams = profiles.get(3);
+		Profile mgaye = profiles.get(4);
+		
+		System.out.println(infringe.getNgrams().size());
+		
+		
+		double cng = n.runCNG(original, rthicke);
+		System.out.println(cng);
+		
+		/*
+		Profile p = profiles.get(4);
 		Map<String,Integer> m = p.getNgrams();
 		for(String s:m.keySet())
 		{
 			System.out.println(s + "    " + m.get(s));
 		}
 		System.out.println(n.findProbable(p, profiles));
-		/*
-		File[] files = f.getFiles(originalLocation);
-		try {
-			System.out.println(files[0].getCanonicalPath());
-			byte[] bytes = f.readFileToBytes(files[0]);
-			
-			List<String> bs = n.getBitStringNgramsFromByteArray(bytes, ngramSize);
-			/*
-			for(int i= 0; i < bytes.length; i++)
-			{
-				System.out.println(String.format("%8s", Integer.toBinaryString(bytes[i] & 0xFF)).replace(' ', '0'));
-			}///////
-			
-			Profile p = new Profile("originalLyrics", ngramSize);
-			p.addToProfile(bs);
-			
-			p.setProfileLength(profileLength);
-			
-			Map<String,Integer> temp = p.getNgrams();
-			
-			
-			Set<String> k = temp.keySet();
-			
-			for(String s:k)
-			{
-				System.out.println(s + "   " + temp.get(s));
-			}
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		*/
 	}
 	/**
 	 * Creates a new profile based on the passed arguments
