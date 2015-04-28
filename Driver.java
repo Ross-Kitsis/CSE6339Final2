@@ -8,7 +8,7 @@ public class Driver
 	public static void main(String[] args)
 	{
 		//Parameters
-		int ngramSize = 2;
+		int ngramSize = 1;
 		double profileLengthFactor = 0.2;
 		
 		//File locations for Marvin Gaye, Robin Thicke and Pharrel Williams
@@ -27,7 +27,7 @@ public class Driver
 		//Initialize List of profiles
 		List<Profile> profiles = new ArrayList<Profile>();
 		
-		for(; ngramSize < 3 ; ngramSize ++)
+		for(; ngramSize < 11 ; ngramSize ++)
 		{
 			profiles.add(buildProfile("original", ngramSize, originalLocation));
 			profiles.add(buildProfile("infringe", ngramSize, infringeLocation));
@@ -35,24 +35,43 @@ public class Driver
 			profiles.add(buildProfile("pwilliams", ngramSize, pWilliamsLocation));
 			profiles.add(buildProfile("mgaye", ngramSize, mGayeLocation));
 			
-			for(int i = 1; i < 2; i++)
+			for(int i = 5; i > 0; i--)
 			{
-				int profileLength =(int) (profiles.get(0).getNgrams().size() * (profileLengthFactor * i));
+				int minLength = getMinProfileLength(profiles);
+				double factor = profileLengthFactor * i;
+				
+				int profileLength = (int) (minLength * factor);
 				adjustProfileLengths(profiles, profileLength);
-				System.out.println("Length " + profileLength);
-
+				//System.out.println("Length " + profileLength);
 				Profile original = profiles.get(0);
 				Profile infringe = profiles.get(1);
 				Profile rthicke = profiles.get(2);
 				Profile pwilliams = profiles.get(3);
 				Profile mgaye = profiles.get(4);
 
-				System.out.println(original.getNgrams().size());
+				//System.out.println(original.getNgrams().size());
+				
+				System.out.println("-------------------------------");
+				
+				//System.out.print(minLength+ "   ");
+				//System.out.println(factor * i);
+				
+				System.out.println("ngram size: " + ngramSize);
+				System.out.println("profile factor " + profileLengthFactor * i);
+				System.out.println("Profile length  " + profileLength);
 
-
+				System.out.println();
+				
+				System.out.println("CNG RThicke -- BL  " + n.runCNG(infringe, rthicke));
+				System.out.println("CNG PWilliams -- BL  " + n.runCNG(infringe, pwilliams));
+				System.out.println("CNG Original -- BL  " + n.runCNG(infringe, original));
+				System.out.println("CNG Original -- MGaye   " + n.runCNG(original, mgaye));
+				
+				/*
 				double cng = n.runCNG(original, pwilliams);
-				System.out.println(cng);
+				System.out.println(cng);*/
 			}
+			profiles.clear();
 
 		}
 		/*
@@ -100,5 +119,17 @@ public class Driver
 		{
 			p.setProfileLength(profileLength);
 		}
+	}
+	public static int getMinProfileLength(List<Profile> profiles)
+	{
+		int min = Integer.MAX_VALUE;
+		for(int i = 0; i < profiles.size(); i++)
+		{
+			if(profiles.get(i).getNgrams().size() < min)
+			{
+				min = profiles.get(i).getNgrams().size();
+			}
+		}
+		return min;
 	}
 }
