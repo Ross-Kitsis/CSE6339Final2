@@ -128,6 +128,8 @@ public class NgramOps
 				vp2 = 0;
 			}
 			
+			//System.out.println("String : " + s + " V1: " + vp1 + " V2: " + vp2);
+			
 			toReturn = toReturn + Math.pow(((2 * (vp1 - (double) vp2))/(double)(vp1+vp2)),2);
 		}
 		return toReturn;
