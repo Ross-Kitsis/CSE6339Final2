@@ -34,6 +34,19 @@ public class Profile
 			}
 		}
 	}
+	public void addToProfile(Map<String,Integer> allNgrams)
+	{
+		for(String s:allNgrams.keySet())
+		{
+			if(ngrams.containsKey(s))
+			{
+				ngrams.put(s, ngrams.get(s) + allNgrams.get(s));
+			}else
+			{
+				ngrams.put(s, allNgrams.get(s));
+			}
+		}
+	}
 	public String getIdenifier() {
 		return idenifier;
 	}

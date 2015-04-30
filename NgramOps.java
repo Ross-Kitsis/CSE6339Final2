@@ -53,6 +53,29 @@ public class NgramOps
 		
 		return toReturn;
 	}
+	public Map<String,Integer> getBitStringNgramsFromByteArrayMap(byte[] bytes,int size)
+	{
+		Map<String,Integer> toReturn = new HashMap<String,Integer>();
+		StringBuilder sb = new StringBuilder();
+		for(int start = 0; start < bytes.length - size;start++)
+		{
+			for(int i = start; i < start + size; i++)
+			{
+				sb.append(String.format("%8s", Integer.toBinaryString(bytes[i] & 0xFF)).replace(' ', '0'));
+			}
+			Integer add = toReturn.get(sb.toString());
+			if(add == null)
+			{
+				toReturn.put(sb.toString(),1);
+			}else
+			{
+				toReturn.put(sb.toString(),add + 1);
+			}
+			sb.setLength(0);
+		}
+		return toReturn;
+	}
+	
 	/**
 	 * Finds the most related profile in the list of profiles
 	 * @param p The profile to compare to
